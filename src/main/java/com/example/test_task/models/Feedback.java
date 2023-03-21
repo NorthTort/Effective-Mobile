@@ -17,7 +17,7 @@ public class Feedback {
     private Product product;
 
     @Column(name = "feedback", nullable = false, columnDefinition = "text")
-    @NotEmpty(message = "отзыв о товаре не может быть пустым")
+    @NotEmpty(message = "Отзыв о товаре не может быть пустым")
     private String feedback;
 
     public Feedback() {

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -46,6 +47,15 @@ public class Product {
     @Column(name = "keywords", nullable = false, columnDefinition = "text")
     @NotEmpty(message = "Ключевые слова товара не могут быть пустыми")
     private String keywords;
+
+
+    @OneToMany(mappedBy = "product")
+    private List<Characteristic> characteristics;
+
+    @OneToMany(mappedBy = "product")
+    private List<Rating> ratings;
+
+
 
     private LocalDateTime dateTimeOfCreate;
 
@@ -102,6 +112,14 @@ public class Product {
         return keywords;
     }
 
+    public List<Characteristic> getCharacteristics() {
+        return characteristics;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
     public LocalDateTime getDateTimeOfCreate() {
         return dateTimeOfCreate;
     }
@@ -140,6 +158,14 @@ public class Product {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public void setCharacteristics(List<Characteristic> characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     public void setDateTimeOfCreate(LocalDateTime dateTimeOfCreate) {
