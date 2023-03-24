@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -15,14 +14,16 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "discount")
     private List<Product> products;
 
     @Column(name = "value")
+    @NotEmpty(message = "Размер скидки не может быть пустым")
     @Min(value = 0, message = "Скидка на товар не может быть отрицательной")
     @Max(value = 99, message = "Cкидка на товар не может быть 100%")
     private byte value;
 
+    @NotEmpty(message = "Время скидки не может быть пустым")
     @Column(name = "time")
     private LocalTime time;
 

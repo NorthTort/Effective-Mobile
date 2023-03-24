@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class Product {
+@Table(name = "requests_products")
+public class RequestProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +41,6 @@ public class Product {
     @ManyToOne(optional = false)
     private Discount discount;
 
-    @OneToMany(mappedBy = "product")
-    private List<Feedback> feedback;
-
     @Column(name = "keywords", nullable = false, columnDefinition = "text")
     @NotEmpty(message = "Ключевые слова товара не могут быть пустыми")
     private String keywords;
@@ -51,121 +49,97 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Characteristic> characteristics;
 
-    @OneToMany(mappedBy = "product")
-    private List<Rating> ratings;
-
     private LocalDateTime dateTimeOfCreate;
 
-    public Product() {
+    public RequestProduct() {
     }
 
-    public Product(String title, String description, float price, int quantity, String keywords) {
+    public RequestProduct(String title, String description, float price, int quantity, String keywords) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.keywords = keywords;
-    }
-
-    //Будет заполняться дата и время при создании объекта класса
-    @PrePersist
-    private void init(){
-        dateTimeOfCreate = LocalDateTime.now();
     }
 
     public int getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public List<Feedback> getFeedback() {
-        return feedback;
-    }
-
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public List<Characteristic> getCharacteristics() {
-        return characteristics;
-    }
-
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public LocalDateTime getDateTimeOfCreate() {
-        return dateTimeOfCreate;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Company getCompany() {
+        return company;
     }
 
     public void setCompany(Company company) {
         this.company = company;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    public Discount getDiscount() {
+        return discount;
+    }
+
     public void setDiscount(Discount discount) {
         this.discount = discount;
     }
 
-    public void setFeedback(List<Feedback> feedback) {
-        this.feedback = feedback;
+    public String getKeywords() {
+        return keywords;
     }
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
 
+    public List<Characteristic> getCharacteristics() {
+        return characteristics;
+    }
+
     public void setCharacteristics(List<Characteristic> characteristics) {
         this.characteristics = characteristics;
     }
 
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
+    public LocalDateTime getDateTimeOfCreate() {
+        return dateTimeOfCreate;
     }
 
-    public void setDateTimeOfCreate(LocalDateTime dateTimeOfCreate) {
-        this.dateTimeOfCreate = dateTimeOfCreate;
+    @PrePersist
+    private void init(){
+        dateTimeOfCreate = LocalDateTime.now();
     }
 }

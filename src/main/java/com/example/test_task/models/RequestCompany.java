@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "company")
-public class Company {
+@Table(name = "requests_companys")
+public class RequestCompany {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,24 +25,14 @@ public class Company {
     @JoinColumn(name = "logo_id")
     private Image logo;
 
-    @OneToMany(mappedBy = "company")
-    private List<Product> products;
-
     private LocalDateTime dateTimeOfCreate;
 
-    public Company() {
+    public RequestCompany() {
     }
 
-    public Company(String title, String description) {
+    public RequestCompany(String title, String description, Image logo) {
         this.title = title;
         this.description = description;
-    }
-
-
-    //Будет заполняться дата и время при создании объекта класса
-    @PrePersist
-    private void init(){
-        dateTimeOfCreate = LocalDateTime.now();
     }
 
     public int getId() {
@@ -60,10 +49,6 @@ public class Company {
 
     public Image getLogo() {
         return logo;
-    }
-
-    public List<Product> getProducts() {
-        return products;
     }
 
     public LocalDateTime getDateTimeOfCreate() {
@@ -86,11 +71,8 @@ public class Company {
         this.logo = logo;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public void setDateTimeOfCreate(LocalDateTime dateTimeOfCreate) {
-        this.dateTimeOfCreate = dateTimeOfCreate;
+    @PrePersist
+    private void init(){
+        dateTimeOfCreate = LocalDateTime.now();
     }
 }
