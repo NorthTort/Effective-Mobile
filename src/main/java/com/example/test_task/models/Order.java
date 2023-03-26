@@ -1,7 +1,7 @@
 package com.example.test_task.models;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

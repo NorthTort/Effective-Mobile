@@ -1,10 +1,10 @@
 package com.example.test_task.models;
 
 import com.example.test_task.enumm.Status;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
 
 @Entity
 @Table(name = "Person")
@@ -16,8 +16,8 @@ public class Person {
 
     @NotEmpty(message = "Логин не может быть пустым")
     @Size(min = 5, max = 20, message = "Логин должен быть от 5 до 20 символов")
-    @Column(name = "username")
-    private String username;
+    @Column(name = "login")
+    private String login;
 
     @NotEmpty(message = "Почта не может быть пустой")
     @Column(name = "mail")
@@ -43,8 +43,8 @@ public class Person {
     public Person() {
     }
 
-    public Person(String username, String mail, String password, float balance) {
-        this.username = username;
+    public Person(String login, String mail, String password, float balance) {
+        this.login = login;
         this.mail = mail;
         this.password = password;
         this.balance = balance;
@@ -56,7 +56,7 @@ public class Person {
     }
 
     public String getLogin() {
-        return username;
+        return login;
     }
 
     public String getMail() {
@@ -80,7 +80,7 @@ public class Person {
     }
 
     public void setLogin(String login) {
-        this.username = login;
+        this.login = login;
     }
 
     public void setMail(String mail) {
@@ -95,4 +95,15 @@ public class Person {
         this.role = role;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
 }

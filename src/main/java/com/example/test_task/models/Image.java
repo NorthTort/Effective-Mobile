@@ -1,7 +1,6 @@
 package com.example.test_task.models;
 
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Image {

@@ -1,8 +1,11 @@
 package com.example.test_task.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 
+
+import com.example.test_task.enumm.Status;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,12 +34,15 @@ public class Company {
 
     private LocalDateTime dateTimeOfCreate;
 
+    private Status status;
+
     public Company() {
     }
 
     public Company(String title, String description) {
         this.title = title;
         this.description = description;
+        this.status = Status.Active;
     }
 
 
@@ -92,5 +98,13 @@ public class Company {
 
     public void setDateTimeOfCreate(LocalDateTime dateTimeOfCreate) {
         this.dateTimeOfCreate = dateTimeOfCreate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
