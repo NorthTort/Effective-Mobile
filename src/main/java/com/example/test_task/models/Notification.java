@@ -16,6 +16,8 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String number;
+
     @ManyToOne(optional = false) //Связь с пользователем, кто отправил сообщение
     private Person senderPerson;
 
@@ -37,7 +39,8 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String notificationText, String notificationHeading) {
+    public Notification(String number, String notificationText, String notificationHeading) {
+        this.number = number;
         this.notificationText = notificationText;
         this.notificationHeading = notificationHeading;
     }
@@ -48,6 +51,14 @@ public class Notification {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getNotificationHeading() {

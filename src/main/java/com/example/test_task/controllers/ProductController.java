@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductRepository productRepository;
     private final ProductServise productServise;
 
     @Autowired
-    public ProductController(ProductRepository productRepository, ProductServise productServise) {
-        this.productRepository = productRepository;
+    public ProductController(ProductServise productServise) {
         this.productServise = productServise;
     }
 
@@ -26,4 +24,6 @@ public class ProductController {
         model.addAttribute("products", productServise.getAllActiveProduct());
         return "product/products";
     }
+
+
 }
