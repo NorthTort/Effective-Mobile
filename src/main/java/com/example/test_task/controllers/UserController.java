@@ -1,6 +1,8 @@
 package com.example.test_task.controllers;
 
+import com.example.test_task.models.Company;
 import com.example.test_task.models.Notification;
+import com.example.test_task.repositories.CompanyRepository;
 import com.example.test_task.repositories.NotificationRepository;
 import com.example.test_task.security.PersonDetails;
 import com.example.test_task.servises.ProductServise;
@@ -16,10 +18,12 @@ import java.util.List;
 public class UserController {
 
     private final NotificationRepository notificationRepository;
+    private final CompanyRepository companyRepository;
     private final ProductServise productServise;
 
-    public UserController(NotificationRepository notificationRepository, ProductServise productServise) {
+    public UserController(NotificationRepository notificationRepository, CompanyRepository companyRepository, ProductServise productServise) {
         this.notificationRepository = notificationRepository;
+        this.companyRepository = companyRepository;
         this.productServise = productServise;
     }
 
@@ -51,6 +55,17 @@ public class UserController {
 
         model.addAttribute("notifications",notificationList);
         return "/user/notifications";
+    }
+
+    public String companiesUser(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+
+        List<Company> companyList = companyRepository.findByPerson(personDetails.getPerson());
+
+        model.addAttribute("companies",companyList);
+        return "/user/companies";
     }
 
 

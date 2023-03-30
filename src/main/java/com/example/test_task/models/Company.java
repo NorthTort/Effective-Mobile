@@ -17,6 +17,8 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String number;
+
     @Column(name = "title", nullable = false, columnDefinition = "text", unique = true)
     @NotEmpty(message = "Название организации не может быть пустым")
     private String title;
@@ -39,7 +41,8 @@ public class Company {
     public Company() {
     }
 
-    public Company(String title, String description) {
+    public Company(String number, String title, String description) {
+        this.number = number;
         this.title = title;
         this.description = description;
         this.status = Status.Active;
@@ -54,6 +57,10 @@ public class Company {
 
     public int getId() {
         return id;
+    }
+
+    public String getNumber() {
+        return number;
     }
 
     public String getTitle() {
@@ -78,6 +85,10 @@ public class Company {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public void setTitle(String title) {
