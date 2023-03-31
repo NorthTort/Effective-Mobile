@@ -57,6 +57,7 @@ public class UserController {
         return "/user/notifications";
     }
 
+    @GetMapping("/companies")
     public String companiesUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -67,6 +68,7 @@ public class UserController {
         model.addAttribute("companies",companyList);
         return "/user/companies";
     }
+
 
 
 }

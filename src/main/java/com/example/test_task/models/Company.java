@@ -5,7 +5,9 @@ package com.example.test_task.models;
 import com.example.test_task.enumm.Status;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,6 +33,11 @@ public class Company {
     @JoinColumn(name = "logo_id")
     private Image logo;
 
+    @Column(name = "balance", nullable = false)
+    @Min(value = 0, message = "Баланс не может быть отрицательным")
+    @NotNull(message = "Баланс не может быть пустым")
+    private float balance;
+
     @OneToMany(mappedBy = "company")
     private List<Product> products;
 
@@ -41,10 +48,11 @@ public class Company {
     public Company() {
     }
 
-    public Company(String number, String title, String description) {
+    public Company(String number, String title, String description, float balance) {
         this.number = number;
         this.title = title;
         this.description = description;
+        this.balance = balance;
         this.status = Status.Active;
     }
 
@@ -75,6 +83,10 @@ public class Company {
         return logo;
     }
 
+    public float getBalance() {
+        return balance;
+    }
+
     public List<Product> getProducts() {
         return products;
     }
@@ -101,6 +113,10 @@ public class Company {
 
     public void setLogo(Image logo) {
         this.logo = logo;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
 
     public void setProducts(List<Product> products) {

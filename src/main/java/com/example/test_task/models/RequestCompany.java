@@ -13,6 +13,9 @@ public class RequestCompany {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @OneToOne(optional = false)
+    private Person person;
+
     @Column(name = "title", nullable = false, columnDefinition = "text", unique = true)
     @NotEmpty(message = "Название организации не может быть пустым")
     private String title;
@@ -39,6 +42,10 @@ public class RequestCompany {
         return id;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -57,6 +64,10 @@ public class RequestCompany {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public void setTitle(String title) {
