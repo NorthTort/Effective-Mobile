@@ -36,4 +36,9 @@ public class ProductServise {
     public void saveProduct(Product product){
         productRepository.save(product);
     }
+
+    public Product getProductFindByTitle(Product product){
+        Optional<Product> product_db = productRepository.findByTitle(product.getTitle());
+        return product_db.orElse(null);
+    }
 }
