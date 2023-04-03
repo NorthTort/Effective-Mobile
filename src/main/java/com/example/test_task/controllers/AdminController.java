@@ -4,6 +4,7 @@ import com.example.test_task.models.Notification;
 import com.example.test_task.repositories.PersonRepository;
 import com.example.test_task.security.PersonDetails;
 import com.example.test_task.servises.NotificationServise;
+import com.example.test_task.servises.PersonServise;
 import com.example.test_task.servises.RequestCompaniesServise;
 import com.example.test_task.servises.RequestProductServise;
 import org.springframework.security.core.Authentication;
@@ -26,14 +27,16 @@ public class AdminController {
     private final RequestProductServise requestProductServise;
     private final PersonRepository personRepository;
     private final NotificationServise notificationServise;
+    private final PersonServise personServise;
 
 
     public AdminController(RequestCompaniesServise requestCompaniesServise, RequestProductServise requestProductServise,
-                           PersonRepository personRepository, NotificationServise notificationServise) {
+                           PersonRepository personRepository, NotificationServise notificationServise, PersonServise personServise) {
         this.requestCompaniesServise = requestCompaniesServise;
         this.requestProductServise = requestProductServise;
         this.personRepository = personRepository;
         this.notificationServise = notificationServise;
+        this.personServise = personServise;
     }
 
 
@@ -75,5 +78,11 @@ public class AdminController {
     public String sendPerson(@ModelAttribute("notification") @Valid Notification notification, BindingResult bindingResult){
         notificationServise.saveNotification(notification);
         return "redirect:/admin/sendNotification";
+    }
+
+    @GetMapping("/users")
+    public String usersAdmin(Model model){
+        model.addAttribute("users", personServise.getAllPerson());
+        return "admin/users";
     }
 }
