@@ -2,17 +2,14 @@ package com.example.test_task.controllers;
 
 import com.example.test_task.models.Notification;
 import com.example.test_task.repositories.PersonRepository;
+import com.example.test_task.repositories.ProductRepository;
 import com.example.test_task.security.PersonDetails;
 import com.example.test_task.servises.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,16 +23,18 @@ public class AdminController {
     private final NotificationServise notificationServise;
     private final PersonServise personServise;
     private final CompanyServise companyServise;
+    private final ProductServise productServise;
 
 
     public AdminController(RequestCompaniesServise requestCompaniesServise, RequestProductServise requestProductServise,
-                           PersonRepository personRepository, NotificationServise notificationServise, PersonServise personServise, CompanyServise companyServise) {
+                           PersonRepository personRepository, NotificationServise notificationServise, PersonServise personServise, CompanyServise companyServise, ProductServise productServise) {
         this.requestCompaniesServise = requestCompaniesServise;
         this.requestProductServise = requestProductServise;
         this.personRepository = personRepository;
         this.notificationServise = notificationServise;
         this.personServise = personServise;
         this.companyServise = companyServise;
+        this.productServise = productServise;
     }
 
 
@@ -74,7 +73,7 @@ public class AdminController {
     }
 
     @PostMapping("/person/send/{id}")
-    public String sendPerson(@ModelAttribute("notification") @Valid Notification notification, BindingResult bindingResult){
+    public String sendPerson(@ModelAttribute("notification") @Valid Notification notification){
         notificationServise.saveNotification(notification);
         return "redirect:/admin/sendNotification";
     }
@@ -90,4 +89,19 @@ public class AdminController {
         model.addAttribute("companies", companyServise.getAllCompany());
         return "admin/companies";
     }
+
+    @GetMapping("/company/{id}")
+    public String companyAdmin(@PathVariable("id") int id, Model model){
+        model.addAttribute("company", companyServise.getCompanyId(id));
+        model.addAttribute("products", productServise.getAllProductCompanyId(id));
+        return "admin/company";
+    }
+
+    @GetMapping("/product/edit/{id}")
+    public String editProduct(@PathVariable("id") int id, Model model){
+        model.addAttribute("editProduct", productServise.getProductId(id));
+        return "admin/product";
+    }
+
+
 }

@@ -15,5 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select product.id, product.title, product.description, product.company, product.price, product.quantity, product.feedback, product.keywords, product.characteristics, product.ratings from product inner join company on product.company = company.id where company.status = 'Active'", nativeQuery = true)
     List<Product> findByCompanyActive();
 
+    @Query(value = "select product.id, product.title, product.description, product.company, product.price, product.quantity, product.feedback, product.keywords, product.characteristics, product.ratings from product inner join company on product.company = %?1", nativeQuery = true)
+    List<Product> findProductByCompanyId(int id);
 
 }

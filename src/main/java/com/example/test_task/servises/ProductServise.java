@@ -27,6 +27,8 @@ public class ProductServise {
         return productRepository.findByCompanyActive();
     }
 
+    public List<Product> getAllProductCompanyId(int id){return productRepository.findProductByCompanyId(id);}
+
     public Product getProductId(int id){
         Optional<Product> optionalProduct = productRepository.findById(id);
         return optionalProduct.orElse(null);
