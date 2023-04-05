@@ -3,10 +3,7 @@ package com.example.test_task.controllers;
 import com.example.test_task.models.Notification;
 import com.example.test_task.repositories.PersonRepository;
 import com.example.test_task.security.PersonDetails;
-import com.example.test_task.servises.NotificationServise;
-import com.example.test_task.servises.PersonServise;
-import com.example.test_task.servises.RequestCompaniesServise;
-import com.example.test_task.servises.RequestProductServise;
+import com.example.test_task.servises.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,15 +25,17 @@ public class AdminController {
     private final PersonRepository personRepository;
     private final NotificationServise notificationServise;
     private final PersonServise personServise;
+    private final CompanyServise companyServise;
 
 
     public AdminController(RequestCompaniesServise requestCompaniesServise, RequestProductServise requestProductServise,
-                           PersonRepository personRepository, NotificationServise notificationServise, PersonServise personServise) {
+                           PersonRepository personRepository, NotificationServise notificationServise, PersonServise personServise, CompanyServise companyServise) {
         this.requestCompaniesServise = requestCompaniesServise;
         this.requestProductServise = requestProductServise;
         this.personRepository = personRepository;
         this.notificationServise = notificationServise;
         this.personServise = personServise;
+        this.companyServise = companyServise;
     }
 
 
@@ -84,5 +83,11 @@ public class AdminController {
     public String usersAdmin(Model model){
         model.addAttribute("users", personServise.getAllPerson());
         return "admin/users";
+    }
+
+    @GetMapping("/companies")
+    public String companiesAdmin(Model model){
+        model.addAttribute("companies", companyServise.getAllCompany());
+        return "admin/companies";
     }
 }
